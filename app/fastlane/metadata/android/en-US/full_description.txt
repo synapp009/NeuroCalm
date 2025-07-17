@@ -1,0 +1,15 @@
+<b>NeuroCalm</b> is a focused, minimal app designed to stimulate the auricular branch of the vagus nerve using controlled vibration patterns — promoting calm, relaxation, and parasympathetic activation.
+
+<b>Key Features:</b>
+
+<ul>
+  <li><b>Targeted Stimulation:</b> Designed for use at the cymba conchae (left ear), based on current aVNS research.</li>
+  <li><b>Multiple Modes:</b> Choose from 4 evidence-inspired stimulation patterns (Standard, Burst, Continuous, Amplitude Modulated).</li>
+  <li><b>Simple Interface:</b> Start with one tap. No account, no tracking, no distractions.</li>
+  <li><b>Custom Duration:</b> Use the time slider or select from recommended durations.</li>
+  <li><b>Offline & Private:</b> No internet needed. Everything runs fully on-device.</li>
+</ul>
+
+<b>⚠️ Disclaimer:</b>  
+This app is not a medical device. Use at your own risk. Possible side effects include tingling, dizziness, or skin irritation. Continuous use may warm the device.
+
