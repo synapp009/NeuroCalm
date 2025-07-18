@@ -1,4 +1,4 @@
-package com.example.myapplication
+package nodomain.synapp.neurocalm
 
 import org.junit.Test
 

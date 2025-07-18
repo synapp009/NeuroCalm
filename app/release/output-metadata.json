@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.myapplication",
+  "applicationId": "nodomain.synapp.neurocalm",
   "variantName": "release",
   "elements": [
     {

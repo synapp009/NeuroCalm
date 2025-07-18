@@ -1,4 +1,4 @@
-package com.example.vibrationcontrol
+package nodomain.synapp.neurocalm
 
 import android.os.*
 import androidx.activity.ComponentActivity
@@ -11,17 +11,13 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.getSystemService
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
-import com.example.myapplication.R
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.FontWeight
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.graphics.Color
-
-
+import nodomain.synapp.neurocalm.R
 
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +25,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val vibrator = getSystemService<Vibrator>() ?: return
 
-        val prefs = getSharedPreferences("vagus_prefs", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("vagus_prefs", MODE_PRIVATE)
         val firstLaunch = prefs.getBoolean("firstLaunch", true)
 
         setContent {
