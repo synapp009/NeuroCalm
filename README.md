@@ -51,5 +51,16 @@ Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/rele
 
 MIT License or Creative Commons.
 
+---
+
 ## Security
 🔐 This app uses [AllowedAPKSigningKeys](signing/allowed-keys.txt) to protect users from unintentional or undetected signing key changes.
+
+---
+
+## 🔐 Verified Identity & Contact
+
+These are my confirmed communication channels:
+
+- 📧 E-mail: `michael.andreas.berger@outlook.com`
+- 🔗 GitHub: https://github.com/synapp (signed commits)
