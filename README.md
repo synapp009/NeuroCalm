@@ -50,3 +50,6 @@ Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/rele
 ## 📃 License
 
 MIT License or Creative Commons.
+
+## Security
+🔐 This app uses [AllowedAPKSigningKeys](signing/allowed-keys.txt) to protect users from unintentional or undetected signing key changes.
