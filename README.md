@@ -1,4 +1,5 @@
 # Vagus Stimulator (Android)
+[<img src="https://shields.rbtlog.dev/simple/nodomain.synapp.neurocalm" alt="RB shield">](https://shields.rbtlog.dev/nodomain.synapp.neurocalm)
 
 This Android app provides non-invasive **auricular vagus nerve stimulation (aVNS)** using the smartphone's vibration motor.
 
@@ -32,9 +33,11 @@ The app aims to activate the **parasympathetic nervous system** by stimulating t
 
 ## 📦 Installation
 
-Download the APK from the [Releases](https://github.com/YOUR_USERNAME/YOUR_REPO/releases) section or build it via Android Studio.
+Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/releases) section or build it via Android Studio.
 
----
+<a href="https://apt.izzysoft.de/fdroid/">
+  <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="IzzyOnDroid" width="200"/>
+</a>
 
 ## 🛠 Tech Stack
 
