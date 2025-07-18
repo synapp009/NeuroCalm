@@ -1,6 +1,7 @@
 package nodomain.synapp.neurocalm
 
 import android.os.*
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,8 @@ import nodomain.synapp.neurocalm.R
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val vibrator = getSystemService<Vibrator>() ?: return
 
         val prefs = getSharedPreferences("vagus_prefs", MODE_PRIVATE)
