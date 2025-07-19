@@ -1,1 +1,1 @@
-de.neurocalm.app 91edebaa58303ceee25c79c8f0b9902c285396529c33ecb6a273f5d1c30d81b0
+nodomain.neurocalm.app 91edebaa58303ceee25c79c8f0b9902c285396529c33ecb6a273f5d1c30d81b0
