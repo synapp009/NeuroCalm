@@ -35,7 +35,7 @@ The app aims to activate the **parasympathetic nervous system** by stimulating t
 
 Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/releases) section or build it via Android Studio.
 
-<a href="https://apt.izzysoft.de/fdroid/">
+<a href="https://apt.izzysoft.de/fdroid/packages/nodomain.synapp.neurocalm">
   <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="IzzyOnDroid" width="200"/>
 </a>
 
