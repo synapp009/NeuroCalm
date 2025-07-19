@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.graphics.Color
-import nodomain.synapp.neurocalm.R
 
 
 class MainActivity : ComponentActivity() {
