@@ -183,7 +183,7 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
             text = buildAnnotatedString {
                 append("Instructions:\n")
                 append("1. Tap a vibration mode to start.\n")
-                append("2. Place the bottom-left corner of your phone directly on the ")
+                append("2. Place the bottom-right corner of your phone directly on the ")
 
                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                     append("marked point inside your left ear")
