@@ -1,0 +1,2 @@
+-improved picture of ear diagram and instructions
+-disabled screen rotation and sleep mode while using app
