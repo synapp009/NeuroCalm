@@ -30,7 +30,7 @@ android {
     applicationVariants.all {
         outputs.all {
             val outputImpl = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-            outputImpl.outputFileName = "neurocalm-v${versionName}.apk"
+            outputImpl.outputFileName = "neurocalm-${versionName}.apk"
         }
     }
     compileOptions {
