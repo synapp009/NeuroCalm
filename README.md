@@ -63,4 +63,4 @@ MIT License or Creative Commons.
 These are my confirmed communication channels:
 
 - 📧 E-mail: michael.andreas.berger [at] outlook [dot] com
-- 🔗 GitHub: https://github.com/synapp (signed commits)
+- 🔗 GitHub: https://github.com/synapp009 (signed commits)
