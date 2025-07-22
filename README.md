@@ -39,7 +39,8 @@ Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/rele
   <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="IzzyOnDroid" width="200"/>
 </a>
 
-If vibration effect does not occure, change Settings > Accessibility > Vibration & haptics > Media vibration "on".
+### Installation issues
+If vibration effect does not occure, set <b>Settings > Accessibility > Vibration & haptics > Media vibration "on". </b>
 
 ## 🛠 Tech Stack
 
