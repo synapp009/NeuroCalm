@@ -21,6 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.getSystemService
 import androidx.compose.ui.text.withStyle
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 
 class MainActivity : ComponentActivity() {
@@ -215,7 +217,16 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
 
         Spacer(Modifier.height(32.dp))
 
-        Image(
+
+
+        val scrollState = rememberScrollState()
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(16.dp)
+        ) {        Image(
             painter = painterResource(id = R.drawable.ear_diagram),
             contentDescription = "Ear stimulation guide",
             modifier = Modifier
@@ -224,21 +235,21 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
             contentScale = ContentScale.Fit,
         )
 
-        Spacer(Modifier.height(16.dp))
-
-        Text(
-            text = buildAnnotatedString {
-                append("Instructions:\n")
-                append("1. Tap a vibration mode to start.\n")
-                append("2. Place the bottom-right corner of your phone directly on the ")
-                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                    append("marked point inside your left ear")
-                }
-                append(" (cymba conchae). Hold gently for the duration of the stimulation.")
-                append("3. Optional: to maximize vagus stimulation use breathing technique with 4 seconds inhale, 6 seconds exhale.")
-            },
-            style = MaterialTheme.typography.bodyMedium
-        )
+            Spacer(Modifier.height(16.dp))
+            Text(
+                text = buildAnnotatedString {
+                    append("Instructions:\n")
+                    append("1. Tap a vibration mode to start.\n")
+                    append("2. Place the bottom-right corner of your phone directly on the ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append("marked point inside your left ear")
+                    }
+                    append(" (cymba conchae). Hold gently for the duration of the stimulation.\n")
+                    append("3. Optional: to maximize vagus stimulation use breathing technique: 4 seconds inhale, 6 seconds exhale.")
+                },
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
 }
 
