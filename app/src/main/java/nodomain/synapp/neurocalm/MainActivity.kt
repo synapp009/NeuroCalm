@@ -245,7 +245,7 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
                         append("marked point inside your left ear")
                     }
                     append(" (cymba conchae). Hold gently for the duration of the stimulation.\n")
-                    append("3. Optional: to maximize vagus stimulation use breathing technique: 4 seconds inhale, 6 seconds exhale.")
+                    append("3. Optional: to maximize vagus stimulation use breathing technique: 4 seconds inhale, 6 seconds exhale. Instruction audio is available (checkbox)")
                 },
                 style = MaterialTheme.typography.bodyMedium
             )
