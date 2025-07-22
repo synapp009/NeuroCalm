@@ -12,6 +12,7 @@ The app aims to activate the **parasympathetic nervous system** by stimulating t
 - Choose one of several stimulation modes (Standard, Continuous, Burst, etc.).
 - Set the desired duration (0–30 minutes).
 - Press the **bottom-left edge of your phone** gently onto the **marked point in your left ear** (cymba conchae).
+- Optional: to maximize vagus stimulation use breathing technique: 4 seconds inhale, 6 seconds exhale. Instruction audio is available (checkbox)
 
 > ⚠️ **Use at your own risk!**
 
