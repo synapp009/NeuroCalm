@@ -41,7 +41,7 @@ Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/rele
 </a>
 
 ### Installation issues
-If vibration effect does not occure, set <b>Settings > Accessibility > Vibration & haptics > Media vibration "on". </b>
+If vibration effect does not occure, set <b>Settings > Accessibility > Vibration & haptics > Touch feedback "on". </b>
 
 ## 🛠 Tech Stack
 
