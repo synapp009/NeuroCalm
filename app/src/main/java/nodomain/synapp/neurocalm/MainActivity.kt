@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -23,7 +24,6 @@ import androidx.core.content.getSystemService
 import androidx.compose.ui.text.withStyle
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,23 +46,19 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // MediaPlayer wird automatisch über remember{} in Composable released
     }
 }
 
 @Composable
 fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Unit) {
     val context = LocalContext.current
-    val mediaPlayer :  MediaPlayer? = remember {
-        MediaPlayer.create(context, R.raw.result)?.apply {
-            isLooping = true
-        }
+    val mediaPlayer: MediaPlayer? = remember {
+        MediaPlayer.create(context, R.raw.result)?.apply { isLooping = true }
     }
     DisposableEffect(Unit) {
-        onDispose {
-            mediaPlayer?.release()
-        }
+        onDispose { mediaPlayer?.release() }
     }
+
     var minutes by remember { mutableStateOf(5f) }
     var isVibrating by remember { mutableStateOf(false) }
     var threadHandle by remember { mutableStateOf<Thread?>(null) }
@@ -72,28 +68,26 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
     if (showDialog) {
         AlertDialog(
             onDismissRequest = {},
-            title = { Text("Vagus Nerve Stimulation") },
+            title = { Text(stringResource(R.string.title)) },
             text = {
                 Column {
-                    Text("This app stimulates the auricular branch of the vagus nerve to activate the parasympathetic nervous system.\n")
-                    Text("⚠️ Possible side effects:\n")
+                    Text(stringResource(R.string.intro) + "\n")
+                    Text(buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                            append(stringResource(R.string.side_effects_title))
+                        }
+                    })
+
                     Text(
-                        """
-                        - Tingling or numbness (common)
-                        - Skin irritation (occasional)
-                        - Mild dizziness (occasional)
-                        - Drowsiness (occasional)
-                        - Headache (rare)
-                        - Nausea (rare)
-                    """.trimIndent()
+                        text = stringResource(R.string.side_effects)
+                            .split("-")
+                            .filter { it.isNotBlank() }
+                            .joinToString("\n") { "-${it.trim()}" }
                     )
                     Spacer(Modifier.height(8.dp))
-                    Text(
-                        "⚠️ Prolonged continuous vibration may cause your device to heat up. Avoid using Continuous mode for extended periods.",
-                        color = Color.Red
-                    )
+                    Text(stringResource(R.string.heat_warning), color = Color.Red)
                     Spacer(Modifier.height(8.dp))
-                    Text("Use at your own risk. No liability for use.")
+                    Text(stringResource(R.string.disclaimer))
                 }
             },
             confirmButton = {
@@ -101,32 +95,21 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
                     showDialog = false
                     onDismissIntro()
                 }) {
-                    Text("Got it")
+                    Text(stringResource(R.string.got_it))
                 }
             }
         )
     }
 
     Column(Modifier.padding(top = 48.dp, start = 16.dp, end = 16.dp)) {
-        Text("Stimulation duration: ${minutes.toInt()} minutes")
-        Slider(
-            value = minutes,
-            onValueChange = { minutes = it },
-            valueRange = 0f..30f,
-            enabled = !isVibrating
-        )
+        Text(stringResource(R.string.duration_label) + " ${minutes.toInt()} " + stringResource(R.string.minutes))
+        Slider(value = minutes, onValueChange = { minutes = it }, valueRange = 0f..30f, enabled = !isVibrating)
 
         Spacer(Modifier.height(12.dp))
 
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             listOf(1f, 3f, 5f, 10f).forEach { preset ->
-                Button(
-                    onClick = { minutes = preset },
-                    enabled = !isVibrating
-                ) {
+                Button(onClick = { minutes = preset }, enabled = !isVibrating) {
                     Text("${preset.toInt()} min")
                 }
             }
@@ -135,18 +118,14 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
         Spacer(Modifier.height(12.dp))
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Checkbox(
-                checked = playSound,
-                onCheckedChange = { playSound = it },
-                enabled = !isVibrating
-            )
-            Text("play sound for breathing 4s/6s.")
+            Checkbox(checked = playSound, onCheckedChange = { playSound = it }, enabled = !isVibrating)
+            Text(stringResource(R.string.play_sound))
         }
 
         Spacer(Modifier.height(24.dp))
 
         if (!isVibrating) {
-            Text("Choose a stimulation mode:")
+            Text(stringResource(R.string.choose_mode))
 
             Button(onClick = {
                 if (playSound) mediaPlayer?.start()
@@ -157,7 +136,7 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
                     mediaPlayer?.seekTo(0)
                 }
             }, modifier = Modifier.fillMaxWidth()) {
-                Text("Standard (500ms ON / 1500ms OFF)")
+                Text(stringResource(R.string.standard))
             }
 
             Button(onClick = {
@@ -169,7 +148,7 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
                     mediaPlayer?.seekTo(0)
                 }
             }, modifier = Modifier.fillMaxWidth()) {
-                Text("Continuous")
+                Text(stringResource(R.string.continuous))
             }
 
             Button(onClick = {
@@ -181,7 +160,7 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
                     mediaPlayer?.seekTo(0)
                 }
             }, modifier = Modifier.fillMaxWidth()) {
-                Text("Burst")
+                Text(stringResource(R.string.burst))
             }
 
             Button(onClick = {
@@ -193,62 +172,41 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
                     mediaPlayer?.seekTo(0)
                 }
             }, modifier = Modifier.fillMaxWidth()) {
-                Text("Amplitude Modulated")
+                Text(stringResource(R.string.am))
             }
         }
 
         if (isVibrating) {
             Spacer(Modifier.height(24.dp))
-
-            Button(
-                onClick = {
-                    isVibrating = false
-                    vibrator.cancel()
-                    threadHandle?.interrupt()
-                    threadHandle = null
-                    mediaPlayer?.pause()
-                    mediaPlayer?.seekTo(0)
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Stop")
+            Button(onClick = {
+                isVibrating = false
+                vibrator.cancel()
+                threadHandle?.interrupt()
+                threadHandle = null
+                mediaPlayer?.pause()
+                mediaPlayer?.seekTo(0)
+            }, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.stop))
             }
         }
 
-        Spacer(Modifier.height(32.dp))
 
-
-
-        val scrollState = rememberScrollState()
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .padding(16.dp)
-        ) {        Image(
-            painter = painterResource(id = R.drawable.ear_diagram),
-            contentDescription = "Ear stimulation guide",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp),
-            contentScale = ContentScale.Fit,
-        )
+            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+        ) {
+            Image(
+                painterResource(R.drawable.ear_diagram),
+                contentDescription = stringResource(R.string.image_desc),
+                modifier = Modifier.fillMaxWidth().height(200.dp),
+                contentScale = ContentScale.Fit,
+            )
 
             Spacer(Modifier.height(16.dp))
-            Text(
-                text = buildAnnotatedString {
-                    append("Instructions:\n")
-                    append("1. Tap a vibration mode to start.\n")
-                    append("2. Place the bottom-right corner of your phone directly on the ")
-                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                        append("marked point inside your left ear")
-                    }
-                    append(" (cymba conchae). Hold gently for the duration of the stimulation.\n")
-                    append("3. Optional: to maximize vagus stimulation use breathing technique: 4 seconds inhale, 6 seconds exhale. Instruction audio is available (checkbox)")
-                },
-                style = MaterialTheme.typography.bodyMedium
-            )
+
+            Text(text = stringResource(R.string.instructions).replace("1.", "\n1.")
+                .replace("2.", "\n2.")
+                .replace("3.", "\n3."), style = MaterialTheme.typography.bodyMedium)
         }
     }
 }
