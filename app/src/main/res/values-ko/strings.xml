@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name" translatable="false">NeuroCalm</string>
+    <string name="title">미주신경 자극</string>
+    <string name="intro">이 앱은 미주신경의 이개 가지를 자극하여 부교감 신경계를 활성화합니다.</string>
+    <string name="side_effects_title">⚠️ 가능한 부작용:</string>
+    <string name="side_effects">- 따끔거림 또는 무감각 (흔함) - 피부 자극 (가끔) - 가벼운 현기증 (가끔) - 졸림 (가끔) - 두통 (드묾) - 메스꺼움 (드묾)</string>
+    <string name="heat_warning">⚠️ 지속적인 진동은 장치를 뜨겁게 만들 수 있습니다. 연속 모드의 장시간 사용을 피하세요.</string>
+    <string name="disclaimer">사용자는 모든 책임을 지며 앱을 사용합니다. 사용에 대한 책임을 지지 않습니다.</string>
+    <string name="got_it">확인</string>
+    <string name="duration_label">자극 시간:</string>
+    <string name="minutes">분</string>
+    <string name="play_sound">호흡 보조음 4초/6초 재생</string>
+    <string name="choose_mode">자극 모드를 선택하세요:</string>
+    <string name="standard">표준 (500ms 진동 / 1500ms 휴식)</string>
+    <string name="continuous">연속</string>
+    <string name="burst">버스트</string>
+    <string name="am">진폭 변조</string>
+    <string name="stop">중지</string>
+    <string name="image_desc">귀 자극 가이드</string>
+    <string name="instructions">사용 방법: 1. 진동 모드를 탭하여 시작합니다. 2. 스마트폰의 오른쪽 하단 모서리를 왼쪽 귀의 표시된 지점(심바 콘카)에 직접 대고 자극 시간 동안 부드럽게 유지합니다. 3. 선택 사항: 미주신경 자극을 극대화하려면 호흡 기법을 사용하세요: 4초 들이쉬기, 6초 내쉬기. 오디오 설명도 제공됩니다 (체크박스).</string>
+</resources>

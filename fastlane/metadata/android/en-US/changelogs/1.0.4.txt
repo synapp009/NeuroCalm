@@ -1,1 +1,1 @@
--localizing in 10 languages: English, German, Spanish, French, Italian, Dutch, Polish, Portuguese, Russian, Turkish
+-localizing in 11 languages: English, German, Spanish, French, Portuguese, Russian, Arabic, Hindi, Japanese, Korean, Indonesian
