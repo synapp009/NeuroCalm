@@ -6,6 +6,7 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -24,6 +26,9 @@ import androidx.core.content.getSystemService
 import androidx.compose.ui.text.withStyle
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.shape.RoundedCornerShape
+import com.google.accompanist.flowlayout.FlowRow
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +57,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Unit) {
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp.dp
+    val dynamicTopPadding = screenHeight * 0.05f
+
     val mediaPlayer: MediaPlayer? = remember {
         MediaPlayer.create(context, R.raw.result)?.apply { isLooping = true }
     }
@@ -85,7 +94,7 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
                             .joinToString("\n") { "-${it.trim()}" }
                     )
                     Spacer(Modifier.height(8.dp))
-                    Text(stringResource(R.string.heat_warning), color = Color.Red)
+                    Text(stringResource(R.string.heat_warning), color = MaterialTheme.colorScheme.error)
                     Spacer(Modifier.height(8.dp))
                     Text(stringResource(R.string.disclaimer))
                 }
@@ -101,112 +110,149 @@ fun VagusStimUI(vibrator: Vibrator, showIntro: Boolean, onDismissIntro: () -> Un
         )
     }
 
-    Column(Modifier.padding(top = 48.dp, start = 16.dp, end = 16.dp)) {
-        Text(stringResource(R.string.duration_label) + " ${minutes.toInt()} " + stringResource(R.string.minutes))
-        Slider(value = minutes, onValueChange = { minutes = it }, valueRange = 0f..30f, enabled = !isVibrating)
+    Scaffold { innerPadding ->
+        BoxWithConstraints {
+            val isSmallScreen = maxWidth < 360.dp
+            Column(
+                Modifier
+                    .padding(innerPadding)
+                    .padding(top = dynamicTopPadding, start = 16.dp, end = 16.dp)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Text(stringResource(R.string.duration_label) + " ${minutes.toInt()} " + stringResource(R.string.minutes))
+                Slider(
+                    value = minutes,
+                    onValueChange = { minutes = it },
+                    valueRange = 0f..30f,
+                    enabled = !isVibrating,
+                    colors = SliderDefaults.colors(
+                        thumbColor = MaterialTheme.colorScheme.primary,
+                        activeTrackColor = MaterialTheme.colorScheme.primary,
+                        inactiveTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
+                    )
+                )
 
-        Spacer(Modifier.height(12.dp))
 
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            listOf(1f, 3f, 5f, 10f).forEach { preset ->
-                Button(onClick = { minutes = preset }, enabled = !isVibrating) {
-                    Text("${preset.toInt()} min")
+                Spacer(Modifier.height(12.dp))
+
+                FlowRow(
+                    mainAxisSpacing = 8.dp,
+                    crossAxisSpacing = 8.dp,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    listOf(1f, 3f, 5f, 10f).forEach { preset ->
+                        Button(
+                            onClick = { minutes = preset },
+                            enabled = !isVibrating,
+                            shape = RoundedCornerShape(4.dp), // minimale Rundung
+                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp) // weniger Abstand
+                        ) {
+                            Text("${preset.toInt()} min")
+                        }
+                    }
+                }
+
+                Spacer(Modifier.height(12.dp))
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = playSound, onCheckedChange = { playSound = it }, enabled = !isVibrating)
+                    Text(stringResource(R.string.play_sound))
+                }
+
+                Spacer(Modifier.height(24.dp))
+
+                if (!isVibrating) {
+                    Text(stringResource(R.string.choose_mode))
+
+                    listOf(
+                        stringResource(R.string.standard) to ::startStandardVibration,
+                        stringResource(R.string.continuous) to ::startContinuousVibration,
+                        stringResource(R.string.burst) to ::startBurstVibration,
+                        stringResource(R.string.am) to ::startAmplitudeModulatedVibration
+                    ).forEach { (label, function) ->
+                        Button(
+                            onClick = {
+                                if (playSound) mediaPlayer?.start()
+                                isVibrating = true
+                                threadHandle = function(vibrator, minutes) {
+                                    isVibrating = false
+                                    mediaPlayer?.pause()
+                                    mediaPlayer?.seekTo(0)
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(4.dp)
+                        ) {
+                            Text(label)
+                        }
+                    }
+                }
+
+                if (isVibrating) {
+                    Spacer(Modifier.height(24.dp))
+                    Button(onClick = {
+                        isVibrating = false
+                        vibrator.cancel()
+                        threadHandle?.interrupt()
+                        threadHandle = null
+                        mediaPlayer?.pause()
+                        mediaPlayer?.seekTo(0)
+                    }, modifier = Modifier.fillMaxWidth(),shape = RoundedCornerShape(4.dp)) {
+                        Text(stringResource(R.string.stop))
+                    }
+                }
+
+
+                // State für das Dialogfenster
+                var showInstructions by remember { mutableStateOf(false) }
+                val instructionLabel = stringResource(R.string.instructions).substringBefore(":")
+
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    TextButton(onClick = { showInstructions = true }) {
+                        Text(instructionLabel)
+                    }
+                }
+
+// Der Dialog mit den Anleitungen
+                if (showInstructions) {
+                    AlertDialog(
+                        onDismissRequest = { showInstructions = false },
+                        title = { Text(instructionLabel) },
+                        text = {
+                            Column {
+                                Image(
+                                    painter = painterResource(R.drawable.ear_diagram),
+                                    contentDescription = stringResource(R.string.image_desc),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(200.dp),
+                                    contentScale = ContentScale.Fit
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Text(
+                                    text = stringResource(R.string.instructions)
+                                        .substringAfter(":")
+                                        .replace("1.", "\n1.")
+                                        .replace("2.", "\n2.")
+                                        .replace("3.", "\n3.")
+                                        .trim(),
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                            }
+                        },
+                        confirmButton = {
+                            TextButton(onClick = { showInstructions = false }) {
+                                Text("OK")
+                            }
+                        }
+                    )
                 }
             }
-        }
-
-        Spacer(Modifier.height(12.dp))
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Checkbox(checked = playSound, onCheckedChange = { playSound = it }, enabled = !isVibrating)
-            Text(stringResource(R.string.play_sound))
-        }
-
-        Spacer(Modifier.height(24.dp))
-
-        if (!isVibrating) {
-            Text(stringResource(R.string.choose_mode))
-
-            Button(onClick = {
-                if (playSound) mediaPlayer?.start()
-                isVibrating = true
-                threadHandle = startStandardVibration(vibrator, minutes) {
-                    isVibrating = false
-                    mediaPlayer?.pause()
-                    mediaPlayer?.seekTo(0)
-                }
-            }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.standard))
-            }
-
-            Button(onClick = {
-                if (playSound) mediaPlayer?.start()
-                isVibrating = true
-                threadHandle = startContinuousVibration(vibrator, minutes) {
-                    isVibrating = false
-                    mediaPlayer?.pause()
-                    mediaPlayer?.seekTo(0)
-                }
-            }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.continuous))
-            }
-
-            Button(onClick = {
-                if (playSound) mediaPlayer?.start()
-                isVibrating = true
-                threadHandle = startBurstVibration(vibrator, minutes) {
-                    isVibrating = false
-                    mediaPlayer?.pause()
-                    mediaPlayer?.seekTo(0)
-                }
-            }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.burst))
-            }
-
-            Button(onClick = {
-                if (playSound) mediaPlayer?.start()
-                isVibrating = true
-                threadHandle = startAmplitudeModulatedVibration(vibrator, minutes) {
-                    isVibrating = false
-                    mediaPlayer?.pause()
-                    mediaPlayer?.seekTo(0)
-                }
-            }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.am))
-            }
-        }
-
-        if (isVibrating) {
-            Spacer(Modifier.height(24.dp))
-            Button(onClick = {
-                isVibrating = false
-                vibrator.cancel()
-                threadHandle?.interrupt()
-                threadHandle = null
-                mediaPlayer?.pause()
-                mediaPlayer?.seekTo(0)
-            }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.stop))
-            }
-        }
-
-
-
-        Column(
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-        ) {
-            Image(
-                painterResource(R.drawable.ear_diagram),
-                contentDescription = stringResource(R.string.image_desc),
-                modifier = Modifier.fillMaxWidth().height(200.dp),
-                contentScale = ContentScale.Fit,
-            )
-
-            Spacer(Modifier.height(16.dp))
-
-            Text(text = stringResource(R.string.instructions).replace("1.", "\n1.")
-                .replace("2.", "\n2.")
-                .replace("3.", "\n3."), style = MaterialTheme.typography.bodyMedium)
         }
     }
 }
