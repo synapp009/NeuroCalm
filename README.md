@@ -42,7 +42,7 @@ Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/rele
 
 New! A new version is available at google playstore:
 
-<a href="[https://play.google.com/store/apps/details?id=nodomain.synapp.neurocalmer](https://play.google.com/store/apps/details?id=nodomain.synapp.neurocalmer)">
+<a href="https://play.google.com/store/apps/details?id=nodomain.synapp.neurocalmer">
   <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width="200"/>
 </a>
 
