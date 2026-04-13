@@ -3,20 +3,20 @@
 
 This Android app provides non-invasive **auricular vagus nerve stimulation (aVNS)** using the smartphone's vibration motor.
 
-## 🎯 Purpose
+## Purpose
 
 The app aims to activate the **parasympathetic nervous system** by stimulating the **cymba conchae** region of the left ear.
 
-## 🧠 How It Works
+## How It Works
 
 - Choose one of several stimulation modes (Standard, Continuous, Burst, etc.).
 - Set the desired duration (0–30 minutes).
 - Press the **bottom-left edge of your phone** gently onto the **marked point in your left ear** (cymba conchae).
 - Optional: to maximize vagus stimulation use breathing technique: 4 seconds inhale, 6 seconds exhale. Instruction audio is available (checkbox)
 
-> ⚠️ **Use at your own risk!**
+> **Use at your own risk!**
 
-## ⚠️ Warnings
+## Warnings
 
 ### Device Safety
 - Continuous vibration for extended periods may cause **device heating** or **battery drain**.
@@ -32,7 +32,7 @@ The app aims to activate the **parasympathetic nervous system** by stimulating t
 
 ---
 
-## 📦 Installation
+## Installation
 
 Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/releases) section or build it via Android Studio.
 
@@ -40,10 +40,16 @@ Download the APK from the [Releases](https://github.com/synapp009/NeuroCalm/rele
   <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="IzzyOnDroid" width="200"/>
 </a>
 
+New! A new version is available at google playstore:
+
+<a href="[https://play.google.com/store/apps/details?id=nodomain.synapp.neurocalmer](https://play.google.com/store/apps/details?id=nodomain.synapp.neurocalmer)">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width="200"/>
+</a>
+
 ### Installation issues
 If vibration effect does not occure, set <b>Settings > Accessibility > Vibration & haptics > Touch feedback "on". </b>
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Kotlin + Jetpack Compose
 - Android SDK 26+
@@ -51,20 +57,20 @@ If vibration effect does not occure, set <b>Settings > Accessibility > Vibration
 
 ---
 
-## 📃 License
+## License
 
 MIT License or Creative Commons.
 
 ---
 
 ## Security
-🔐 This app uses [AllowedAPKSigningKeys](signing/allowed-keys.txt) to protect users from unintentional or undetected signing key changes.
+This app uses [AllowedAPKSigningKeys](signing/allowed-keys.txt) to protect users from unintentional or undetected signing key changes.
 
 ---
 
-## 🔐 Verified Identity & Contact
+## Verified Identity & Contact
 
 These are my confirmed communication channels:
 
-- 📧 E-mail: michael.andreas.berger [at] outlook [dot] com
-- 🔗 GitHub: https://github.com/synapp009 (signed commits)
+- E-mail: michael.andreas.berger [at] outlook [dot] com
+- GitHub: https://github.com/synapp009 (signed commits)
